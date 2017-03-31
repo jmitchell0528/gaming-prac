@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  height: 100vh;
+  padding: 10px;
+}
+
+.load  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
+.flash {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  animation: flash;
+  animation-delay: 2s;
+  animation-duration: 6s;
+  animation-timing-function: ease-in-out;
+  z-index: -1;
+}
+
+.splash {
+  height: 100%;
+}
+
+.splash header {
+  height: 10%;
+}
+
+.splash section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.splash .logo-container {
+  width: 100%;
+  position: relative;
+}
+
+.splash footer {
+  height: 10%
+}
+
+.aqua {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  animation-duration: 1.75s;
+  animation-name: slide-right;
+  opacity: 0;
+}
+
+.kitty {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  animation-duration: 1.75s;
+  animation-name: slide-left;
+  opacity: 0;
+}
+
+.final-logo {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 1;
+  animation-duration: 4s;
+  animation-name: appear;
+}
+
+.retro-fighter  {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.char-select {
+  height: 100vh;
+  width: auto;
+}
+
+.char-contain {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.char-one  {
+  transform: 0.5s ease;
+}
+
+.char-one:hover  {
+  transform: scale(1.2);
+}
+
+.char-two  {
+  transform: 0.5s ease;
+}
+
+.char-two:hover  {
+  transform: scale(1.2);
+}
+
+.char-three  {
+  transform: 0.5s ease;
+}
+
+.char-three:hover  {
+  transform: scale(1.2);
+}
+
+.retro {
+  animation-duration: 1.75s;
+  animation-name: slidein-right;
+}
+
+.fighter {
+  animation-duration: 1.75s;
+  animation-name: slidein-left;
+}
+
+@keyframes slide-right {
+  0% {
+    margin-left: -100%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  90% {
+    margin-left: 0%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    margin-left: 100%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  90% {
+    margin-left: 0%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0
+  }
+  50% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+@keyframes flash {
+  0% {
+    background-color: white;
+    opacity: 1;
+  }
+  90% {
+    background-color: inherit;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slidein-right {
+  0% {
+    margin-left: -300%;
+    width: 100%;
+  }
+
+  100% {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+  @keyframes slidein-left {
+    0% {
+      margin-left: 100%;
+      width: 100%;
+    }
+
+    100% {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
