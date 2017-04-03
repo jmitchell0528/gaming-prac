@@ -272,7 +272,7 @@
 },
 "stageStreet.png":
 {
-	"frame": {"x":480,"y":80,"w":1278,"h":228},
+	"frame": {"x":480,"y":80,"w":700,"h":225},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1278,"h":228},

@@ -12,18 +12,38 @@ Sprite = PIXI.Sprite,
 Text = PIXI.Text,
 Graphics = PIXI.Graphics;
 
-var stage = new Container(),
-renderer = autoDetectRenderer(1024, 768);
-document.body.appendChild(renderer.view);
+// var stage = new Container(),
+// renderer = autoDetectRenderer(window.innerWidth, window.innerHeight, {transparent: true});
+// document.getElementById("game_body_wrapper")
+// .appendChild(renderer.view);
 
-      // var gameWrapper = document.querySelector("game_body_wrapper")
-      // gameWrapper.body.appendChild(app.view);
 
-// var app = PIXI.Application(1024, 768);
-// var gameWrapper = document.querySelector("game_body_wrapper")
-// gameWrapper.body.appendChild(renderer.view);
-//
-// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+// Trying out this code
+var size = [1650, 690];
+var ratio = size[0] / size[1];
+var stage = new PIXI.Stage(0x333333, true);
+var renderer = autoDetectRenderer(size[0], size[1]/*, {transparent: true}*/);
+document.getElementById("game_body_wrapper")
+.appendChild(renderer.view);
+
+function resize() {
+  if (window.innerWidth / window.innerHeight >= ratio) {
+    var w = window.innerHeight * ratio;
+    var h = window.innerHeight;
+  }
+  else {
+    var w = window.innerWidth;
+    var h = window.innerWidth / ratio;
+  }
+  renderer.view.style.width = w + 'px';
+  renderer.view.style.height = h + 'px';
+}
+window.onresize = function(event) {
+  resize();
+};
+
+// Scale mode for all textures, will retain pixelation
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 
 loader
@@ -40,42 +60,44 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
 
     // stage
     stageStreet = new Sprite(id["stageStreet.png"]);
-    stageStreet.x = 0;
+    stageStreet.scale.x = 3;
+    stageStreet.scale.y = 3;
+    // stageStreet.x = (stage.width - stageStreet.width) / 2;
     // stageStreet.y = gameScene.height / 256 -
     // stageStreet.height / 256;
     gameScene.addChild(stageStreet);
 
     // blaze
     blaze = new Sprite(id["blaze.png"]);
-    blaze.position.set(280, 116);
-    blaze.scale.set(1, 1);
+    // blaze.position.set(280, 116);
+    blaze.scale.set(3, 3);
     // blaze.anchor.set(0.5, 0.5);
     // Blaze's movement
     blaze.vx = 0;
     blaze.vy = 0;
-    // blaze.x = 256;
-    // blaze.y = gameScene.height / 256 -
-    // blaze.height / 256;
+    blaze.x = 256;
+    blaze.y = gameScene.height / 256 -
+    blaze.height / 256;
     gameScene.addChild(blaze);
 
     // bank
     bank = new Sprite(id["bank.png"])
-    bank.position.set(480, 120);
-    bank.scale.set(1, 1);
+    bank.position.set(950, 300);
+    bank.scale.set(3, 3);
     // bank.anchor.set(0.5, 0.5);
     gameScene.addChild(bank);
 
     // cash
     cash = new Sprite(id["cash.png"])
-    cash.position.set(200, 175);
-    cash.scale.set(1, 1);
+    cash.position.set(350, 500);
+    cash.scale.set(3, 3);
     // cash.anchor.set(0.5, 0.5);
     gameScene.addChild(cash);
 
     // gold
     gold = new Sprite(id["gold.png"])
-    gold.position.set(100, 175);
-    gold.scale.set(1, 1);
+    gold.position.set(200, 450);
+    gold.scale.set(3, 3);
     // cash.anchor.set(0.5, 0.5);
     gameScene.addChild(gold);
 
@@ -84,18 +106,32 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
 
     score = new Text (
       "SCORE: " + counter,
-      {font: "16px Futura", fill: "White"}
+      {font: "36px Futura", fill: "White"}
     );
-    score.position.set(10, 10);
+    score.position.set(30, 10);
     score.scale.set(1, 1);
     // score.anchor.set(0.5, 0.5);
     gameScene.addChild(score);
 
+    // Time counter
+    var timeCounter = 0;
+    timeCounter += 0.05;
+
+    timer = new Text('TIME: ' + Math.floor(timeCounter), {
+      font: "36px futura", fill: "White"
+    });
+    timer.position.set(700, 10);
+    timer.scale.set(1, 1);
+    gameScene.addChild(timer);
+
+
 
     // Create the healthbar
     healthBar = new Container();
-    healthBar.position.set(500, 15)
+    healthBar.position.set(1225, 15);
+    healthBar.scale.set(3, 3);
     gameScene.addChild(healthBar);
+
 
     // Create the black background rectangle
     var innerBar = new Graphics();
@@ -187,14 +223,14 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
             blaze.texture = PIXI.Texture.fromImage(`imageset/blazeAttack${walkingDirection}${attackCounter}.png`)
             attackCounter++
           }
-        }, 165)
+        }, 125)
 
         // Pressing the left arrow key
         left.press = function() {
           isWalking = true
           walkingDirection = "Left"
           // changes Blaze's velocity when left key is pressed
-          blaze.vx = -2;
+          blaze.vx = -3;
           blaze.vy = 0;
         };
         left.release = function() {
@@ -208,7 +244,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
         // Pressing the up arrow key
         up.press = function() {
           isWalking = true;
-          blaze.vy = -2;
+          blaze.vy = -3;
           blaze.vx = 0;
         };
         up.release = function() {
@@ -222,7 +258,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
         right.press = function() {
           isWalking = true;
           walkingDirection = 'Right'
-          blaze.vx = 2;
+          blaze.vx = 3;
           blaze.vy = 0;
         };
         right.release = function() {
@@ -235,7 +271,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
         // Pressing the down arrow key
         down.press = function() {
           isWalking = true;
-          blaze.vy = 2;
+          blaze.vy = 3;
           blaze.vx = 0;
         };
         down.release = function() {
@@ -443,7 +479,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     blaze.y += blaze.vy;
 
     // Contain Blaze inside the stage
-    contain(blaze, {x: 5, y: 70, width: 640, height: 228});
+    contain(blaze, {x: 1, y: 200, width: 1675, height: 685});
   }
 
 

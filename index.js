@@ -1,65 +1,61 @@
 const express = require('express');
 const session = require('express-session');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const facebookStrategy = require('passport-facebook').Strategy;
+const {json} = require('body-parser');
+const cors = require('cors');
+const massive = require ('massive');
 
-/////////
+const connectionString = 'postgres://postgres:Prince11j9@localhost/gamelogs';
 
-passport.use(new facebookStrategy(  {
-  clientID: '',
-  clientSecret: '',
-  callbackURL: 'http://localhost:3000/auth/facebook/callback'
-},
-function(token, refreshToken, profile, done) {
-  return done(null, profile);
-}));
-
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
-
-//////////
+const massiveConnection = massive.connectSync(  {
+  connectionString: connectionString
+})
 
 const app = express();
+const port = 3000;
 
-app.use(bodyParser.json());
-app.use(session(  {
-  secret: 'keyboard kat',
-  saveUnitialized: false,
-  resave: false
-}))
+app.set('db', massiveConnection)
+const db = app.get('db');
 
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(express.static(__dirname + '/public'))
+app.use(json());
+app.use(cors());
+app.use(session(  {secret: 'keyboard kat'}  ));
 
-app.get('/', (req, res) => res.send('Welcome Home'));
-app.get('/me', (req, res) => res.json(req.user));
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/me',
-  failureRedirect: '/'
-}))
-
-app.get('/api/facebook/following',
-  function(req, res, next) {
-    if (!req.isAuthenticated()) {
-      return res.status(403).end();
-    }
-    return next();
-  },
-  function(req, res) {
-    facebook.user.getfollowingFromUser( {
-      user: session.user.username
-    }, function(err, result) {
-      console.log(result)
-      res.send(result)
-    })
+app.get('/api/gamelogs/:id', function(req, res) {
+  db.read_gamelog(req.params.id, function(err, gamelog) {
+    if (err) return res.status(500).json(err)
+    return res.status(200).json(gamelog)
   })
+})
 
-app.listen(3000)
+app.get('/api/gamelogs', function(req, res) {
+  db.read_gamelogs(function(err, gamelogs) {
+    if (err) return res.status(500).json(err)
+    return res.status(200).json(gamelogs)
+  })
+})
+
+app.post('/api/gamelogs', function(req, res) {
+  db.create_gamelog([req.body.user, req.body.character, req.body.points, req.body.level, req.body.score, req.body.time], function(err, createGamelog) {
+    if (err) return res.status(500).json(err)
+    return res.status(200).json(createGamelog)
+  })
+})
+
+// app.put('/', function(req, res) {
+//   db.update_gamelog([req.body.character, req.body.points, req.body.level, req.body.score], function(err, updateGamelog) {
+//     if (err) return res.status(500).json(err)
+//     return res.status(200).json(updateGamelog)
+//   })
+// })
+
+app.delete('/api/gamelogs/:id', function(req, res) {
+  db.delete_gamelog(req.params.id, function(err, deleteGamelog) {
+    if (err) return res.status(500).json(err)
+    return res.status(200).json(deleteGamelog)
+  })
+})
+
+app.listen(port, () => {
+  console.log(`listening on port ${port}`)
+})
