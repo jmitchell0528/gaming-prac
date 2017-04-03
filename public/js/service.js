@@ -114,17 +114,29 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     gameScene.addChild(score);
 
     // Time counter
-    var timeCounter = 0;
-    timeCounter += 0.05;
+    timer = new Text('TIME: 0', {
+      font: "36px futura", fill: "White"}
+    );
 
-    timer = new Text('TIME: ' + Math.floor(timeCounter), {
-      font: "36px futura", fill: "White"
-    });
     timer.position.set(700, 10);
     timer.scale.set(1, 1);
     gameScene.addChild(timer);
 
+    // var timeCounter = 0;
+    //
+    // app.ticker.add(function()  {
+    //     timeCounter += 0.05;
+    //     timer.text = 'TIME: ' + Math.floor(timeCounter);
+    // })
 
+    // level number
+    stageLevel = new Text (
+      "Level: 1", // + counter,
+      {font: "36px Futura", fill: "White"}
+    );
+    stageLevel.position.set(710, 600);
+    stageLevel.scale.set(1, 1);
+    gameScene.addChild(stageLevel);
 
     // Create the healthbar
     healthBar = new Container();
