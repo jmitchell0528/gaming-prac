@@ -1,0 +1,4 @@
+INSERT gamelogs
+SET
+WHERE
+RETURNING *;

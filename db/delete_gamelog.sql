@@ -1,0 +1,3 @@
+DELETE FROM gamelogs
+WHERE id = $1
+RETURNING *;
