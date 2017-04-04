@@ -11,6 +11,7 @@ Texture = PIXI.Texture,
 Sprite = PIXI.Sprite,
 Text = PIXI.Text,
 Graphics = PIXI.Graphics;
+ticker = PIXI.ticker.Ticker;
 
 // var stage = new Container(),
 // renderer = autoDetectRenderer(window.innerWidth, window.innerHeight, {transparent: true});
@@ -50,7 +51,7 @@ loader
   .add("imageset/rageLayout.json")
   .load(setup);
 
-var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, message, score, gameWinScene, blazeAnimation, introScreen;
+var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, message, score, gameWinScene, blazeAnimation, introScreen, timer;
 
   function setup() {
     gameScene = new Container();
@@ -114,20 +115,26 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     gameScene.addChild(score);
 
     // Time counter
-    timer = new Text('TIME: 0', {
-      font: "36px futura", fill: "White"}
+
+    var timer = new Text('TIME: 0',
+      {font: "36px futura", fill: "White"}
     );
 
     timer.position.set(700, 10);
     timer.scale.set(1, 1);
     gameScene.addChild(timer);
 
-    // var timeCounter = 0;
-    //
-    // app.ticker.add(function()  {
-    //     timeCounter += 0.05;
-    //     timer.text = 'TIME: ' + Math.floor(timeCounter);
-    // })
+    var timeCounter = 0;
+
+    requestAnimationFrame(animate);
+
+    function animate()  {
+      timeCounter += 0.025;
+      // update text with new starting
+      timer.text = 'TIME: ' + Math.floor(timeCounter);
+
+      requestAnimationFrame(animate);
+    }
 
     // level number
     stageLevel = new Text (
@@ -171,9 +178,9 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       "You Win!",
       {font: "64px Futura", fill: "White"}
     );
-    message.position.set(320, 114);
-    message.scale.set(1, 1);
-    message.anchor.set(0.5, 0.5);
+    message.position.set(700, 300);
+    // message.scale.set(1, 1);
+    // message.anchor.set(0.5, 0.5);
     gameWinScene.addChild(message);
 
     // Welcome screen
@@ -186,9 +193,9 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       "START!",
       {font: "64px Futura", fill: "White"}
     );
-    message.position.set(320, 114);
-    message.scale.set(1, 1);
-    message.anchor.set(0.5, 0.5);
+    message.position.set(700, 300);
+    // message.scale.set(1, 1);
+    // message.anchor.set(0.5, 0.5);
     introScreen.addChild(message);
 
 
@@ -314,6 +321,12 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       //Does the bank have enough health? If the width of the `innerBar` is less than zero, end the game with "You Win!"
       if (healthBar.outer.width < 0) {
         state = end;
+        var newTimer = numberParser(timer.text)
+        var newStageLevel = numberParser(stageLevel.text)
+        var newScore = numberParser(score.text)
+        console.log(score.text, timer.text, stageLevel.text);
+        console.log(newTimer, newStageLevel, newScore);
+        // $http.post("path/to/sql/endpoint", {character: "blaze", score:score.text, timer: timer.text, stageLevel: stageLevel.text })
       }
     }
 
@@ -330,6 +343,12 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       // If counter goes over 100, the player wins
         if (counter > 100) {
           state = end;
+          var newTimer = numberParser(timer.text)
+          var newStageLevel = numberParser(stageLevel.text)
+          var newScore = numberParser(score.text)
+          console.log(score.text, timer.text, stageLevel.text);
+          console.log(newTimer, newStageLevel, newScore);
+          // $http.post("path/to/sql/endpoint", {character: "blaze", score:score.text, timer: timer.text, stageLevel: stageLevel.text})
         }
 
       } else {
@@ -347,6 +366,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     function end() {
       gameScene.visible = false;
       gameWinScene.visible = true;
+
     }
 
     // returns you to welcome screen once you get the cash
@@ -354,118 +374,6 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       gameScene.visible = false;
       introScreen.visible = true;
     }
-
-
-    // // Original keyboard inputs
-    // var left = keyboard(37),
-    //     up = keyboard(38),
-    //     right = keyboard(39),
-    //     down = keyboard(40),
-    //     attack = keyboard(32); // Spacebar
-    //
-    //
-    // // Pressing the left arrow key
-    // left.press = function() {
-    //   isWalking = true
-    //   // changes Blaze's velocity when left key is pressed
-    //   blaze.vx = -5;
-    //   blaze.vy = 0;
-    // };
-    // left.release = function() {
-    //   isWalking = false
-    // // Stopping Blaze when nothing is being pressed
-    // if (!right.isDown && blaze.vy === 0) {
-    //   blaze.vx = 0;
-    //   }
-    // };
-    //
-    // // Pressing the up arrow key
-    // up.press = function() {
-    //   blaze.vy = -5;
-    //   blaze.vx = 0;
-    // };
-    // up.release = function() {
-    //   if (!down.isDown && blaze.vx === 0) {
-    //     blaze.vy = 0;
-    //   }
-    // };
-    //
-    // //Pressing the right arrow key
-    // right.press = function() {
-    //   blaze.vx = 5;
-    //   blaze.vy = 0;
-    // };
-    // right.release = function() {
-    //   if (!left.isDown && blaze.vy === 0) {
-    //     blaze.vx = 0;
-    //   }
-    // };
-    //
-    // // Pressing the down arrow key
-    // down.press = function() {
-    //   blaze.vy = 5;
-    //   blaze.vx = 0;
-    // };
-    // down.release = function() {
-    //   if (!up.isDown && blaze.vx === 0) {
-    //     blaze.vy = 0;
-    //   }
-    // };
-    //
-    // // Pressing the spacebar to check for collisions
-    // attack.press = function() {
-    //   // Set BlazeHit to false before checking for a collision
-    //   var blazeHit = false;
-    //
-    //   // Check for a collision between Blaze and the cash
-    //   if (hitTestRectangle(blaze, cash)) {
-    //     blazeHit = true;
-    //     console.log("You got the cash!")
-    //     state = end;
-    //     message.text = "You Win!";
-    //   }
-    //
-    //   // Check for a collision between Blaze and the bank
-    //   else if (hitTestRectangle(blaze, bank)) {
-    //     blazeHit = true;
-    //     console.log("You hit the ATM!")
-    //     //Reduce the width of the health bar's inner rect by 10px
-    //     healthBar.outer.width -= 10;
-    //     //Does the bank have enough health? If the width of the `innerBar` is less than zero, end the game with "You Win!"
-    //     if (healthBar.outer.width < 0) {
-    //       state = end;
-    //       message.text = "You Win!";
-    //     }
-    //   }
-    //
-    //   // Check for a collision between Blaze and the gold
-    //   else if (hitTestRectangle(blaze, gold)) {
-    //     // if blazeHit is true when she is touching the gold...
-    //     blazeHit = true;
-    //     console.log("You got the gold!")
-    //     //Make the gold semi-transparent
-    //     gold.alpha = 0.5;
-    //     //add 10 to your score
-    //     counter += 10;
-    //     score.text = "SCORE: " + counter
-    //     // If counter goes over 100, the player wins
-    //       if (counter > 100) {
-    //         state = end;
-    //         message.text = "You Win!";
-    //       }
-    //
-    //   } else {
-    //   //Make the gold fully opaque (non-transparent) if it hasn't been hit
-    //   gold.alpha = 1;
-    //   }
-    // };
-    //
-    // // Ends the game once you get the cash
-    // function end() {
-    //   gameScene.visible = false;
-    //   gameWinScene.visible = true;
-    // }
-
 
 
     // Set the game state
@@ -614,4 +522,10 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     return key;
   }
 }
+  function numberParser(txt){
+    return  txt.split(" ").filter(function(c){
+      return Number(c) !== NaN
+    }).pop();
+  }
+
 })
