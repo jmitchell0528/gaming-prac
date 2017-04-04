@@ -36,14 +36,16 @@ app.get('/api/gamelogs', function(req, res) {
 })
 
 app.post('/api/gamelogs', function(req, res) {
-  db.create_gamelog([req.body.user, req.body.character, req.body.points, req.body.level, req.body.score, req.body.time], function(err, createGamelog) {
-    if (err) return res.status(500).json(err)
+
+  db.create_gamelog([req.body.username, req.body.character, req.body.level, req.body.time, req.body.points], function(err, createGamelog) {
+    console.log(createGamelog);
+    if (err) {return res.status(500).json(err)}
     return res.status(200).json(createGamelog)
   })
 })
 
 // app.put('/', function(req, res) {
-//   db.update_gamelog([req.body.character, req.body.points, req.body.level, req.body.score], function(err, updateGamelog) {
+//   db.update_gamelog([req.body.user, req.body.character, req.body.level, req.body.time, req.body.points], function(err, updateGamelog) {
 //     if (err) return res.status(500).json(err)
 //     return res.status(200).json(updateGamelog)
 //   })

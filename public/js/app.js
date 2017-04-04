@@ -27,4 +27,10 @@ angular.module('gamingPrac', ['ui.router'])
       controller: 'levelOne'
     })
 
+    .state('nameEntry', {
+      url: '/nameEntry',
+      templateUrl: "template/nameEntryTmpl.html",
+      controller: 'nameEntryCtrl'
+    })
+
   })

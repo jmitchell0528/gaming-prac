@@ -27,6 +27,14 @@ main {
   z-index: -1;
 }
 
+.enter-user-text  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
 .splash {
   height: 100%;
 }

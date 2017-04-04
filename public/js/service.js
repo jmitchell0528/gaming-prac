@@ -1,5 +1,7 @@
 angular.module('gamingPrac').service('levelOne',
-function($http, $stateParams) {
+function($http, $stateParams, $state) {
+var self = this
+var paused = false;
   this.play = function() {
 
 Container = PIXI.Container,
@@ -13,13 +15,14 @@ Text = PIXI.Text,
 Graphics = PIXI.Graphics;
 ticker = PIXI.ticker.Ticker;
 
+
 // var stage = new Container(),
 // renderer = autoDetectRenderer(window.innerWidth, window.innerHeight, {transparent: true});
 // document.getElementById("game_body_wrapper")
 // .appendChild(renderer.view);
 
 
-// Trying out this code
+// Code for resizing
 var size = [1650, 690];
 var ratio = size[0] / size[1];
 var stage = new PIXI.Stage(0x333333, true);
@@ -126,14 +129,14 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
 
     var timeCounter = 0;
 
-    requestAnimationFrame(animate);
+    animator(animate);
 
     function animate()  {
       timeCounter += 0.025;
       // update text with new starting
-      timer.text = 'TIME: ' + Math.floor(timeCounter);
+      timer.text = self.timer =  'TIME: ' + Math.floor(timeCounter);
 
-      requestAnimationFrame(animate);
+      animator(animate);
     }
 
     // level number
@@ -168,6 +171,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
 
     healthBar.outer = outerBar;
 
+
     // You win! screen
     gameWinScene = new Container();
     stage.addChild(gameWinScene);
@@ -182,6 +186,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     // message.scale.set(1, 1);
     // message.anchor.set(0.5, 0.5);
     gameWinScene.addChild(message);
+
 
     // Welcome screen
     introScreen = new Container();
@@ -199,12 +204,14 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     introScreen.addChild(message);
 
 
+
     // keyboard arrow set keys
 
         var left = keyboard(37),
             up = keyboard(38),
             right = keyboard(39),
             down = keyboard(40),
+            pause = keyboard(80), // P
             attack = keyboard(32); // Spacebar
 
 
@@ -300,6 +307,16 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
           }
         };
 
+        pause.press = function() {
+          console.log(paused);
+          if (paused){
+            requestAnimationFrame(gameLoop)
+            requestAnimationFrame(animate)
+          }
+          paused = !paused
+        }
+        // pause.press()
+
         // Pressing the spacebar to attack
         attack.press = function() {
           isAttacking = true
@@ -309,7 +326,9 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
     if (hitTestRectangle(blaze, cash)) {
       blazeHit = true;
       console.log("You got the cash!")
-      state = splashScreen;
+      // state = splashScreen;
+      pause.press()
+      $state.go('nameEntry')
     }
 
     // Check for a collision between Blaze and the bank
@@ -321,12 +340,15 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       //Does the bank have enough health? If the width of the `innerBar` is less than zero, end the game with "You Win!"
       if (healthBar.outer.width < 0) {
         state = end;
+
+        // var newCharacter = (blaze.sprite)
         var newTimer = numberParser(timer.text)
-        var newStageLevel = numberParser(stageLevel.text)
+        var newStageLevel = self.level = numberParser(stageLevel.text)
         var newScore = numberParser(score.text)
         console.log(score.text, timer.text, stageLevel.text);
         console.log(newTimer, newStageLevel, newScore);
-        // $http.post("path/to/sql/endpoint", {character: "blaze", score:score.text, timer: timer.text, stageLevel: stageLevel.text })
+        // $http.post("/api/gamelogs", {points: score.text, time: timer.text, level: stageLevel.text })
+        // $http.post("/api/gamelogs", {points: newScore, time: newTimer, level: newStageLevel })
       }
     }
 
@@ -339,16 +361,17 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       gold.alpha = 0.5;
       //add 10 to your score
       counter += 10;
-      score.text = "SCORE: " + counter
+      score.text = self.score = "SCORE: " + counter
       // If counter goes over 100, the player wins
         if (counter > 100) {
           state = end;
+
           var newTimer = numberParser(timer.text)
           var newStageLevel = numberParser(stageLevel.text)
           var newScore = numberParser(score.text)
           console.log(score.text, timer.text, stageLevel.text);
           console.log(newTimer, newStageLevel, newScore);
-          // $http.post("path/to/sql/endpoint", {character: "blaze", score:score.text, timer: timer.text, stageLevel: stageLevel.text})
+          // $http.post("/api/gamelogs", {points: score.text, time: timer.text, level: stageLevel.text})
         }
 
       } else {
@@ -385,7 +408,7 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
 
   function gameLoop() {
     // Loop this function 60 times per second
-    requestAnimationFrame(gameLoop);
+    animator(gameLoop);
     // Update the current game state
     state();
 
@@ -527,5 +550,9 @@ var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, messa
       return Number(c) !== NaN
     }).pop();
   }
-
+  function animator(animate){
+    if (!paused) {
+      requestAnimationFrame(animate)
+    }
+  }
 })
