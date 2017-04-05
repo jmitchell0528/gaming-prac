@@ -162,11 +162,13 @@ main {
 }
 
 .game_body {
-  height: 100vh;
+  height: 100%;
   width: auto;
   display: flex;
   align-content: center;
   justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 /*#game_body_wrapper {
