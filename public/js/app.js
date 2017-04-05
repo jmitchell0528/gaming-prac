@@ -15,6 +15,18 @@ angular.module('gamingPrac', ['ui.router'])
       controller: "splashScreen"
     })
 
+    .state('credits', {
+      url: '/credits',
+      templateUrl: "template/creditsTmpl.html",
+      controller: 'creditsCtrl'
+    })
+
+    .state('ctrlSettings', {
+      url: '/ctrlSettings',
+      templateUrl: "template/ctrlSettingsTmpl.html",
+      controller: 'ctrlSettingsCtrl'
+    })
+
     .state('charSelect', {
       url: '/charSelect',
       templateUrl: "template/charSelectTmpl.html",
@@ -37,6 +49,12 @@ angular.module('gamingPrac', ['ui.router'])
       url: '/scoreScreen',
       templateUrl: "template/scoreScreenTmpl.html",
       // controller: 'scoreCtrl'
+    })
+
+    .state('gameOver', {
+      url: '/gameOver',
+      templateUrl: "template/gameOverTmpl.html",
+      controller: 'gameOverCtrl'
     })
 
   })

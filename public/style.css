@@ -27,6 +27,30 @@ main {
   z-index: -1;
 }
 
+.credits  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
+.ctrl-settings  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
+.game-over  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
 .enter-user-text  {
   display: flex;
   justify-content: center;
