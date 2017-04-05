@@ -35,6 +35,14 @@ main {
   width: auto;
 }
 
+.score-table  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
 .splash {
   height: 100%;
 }

@@ -4,13 +4,13 @@ angular.module('gamingPrac', ['ui.router'])
     $stateProvider
 
     .state('load', {
-      url: '/load',
+      url: '/',
       templateUrl: "template/loadTmpl.html",
       controller: 'loadCtrl'
     })
 
     .state('home', {
-      url: '/',
+      url: '/home',
       templateUrl: "template/splashScreenTmpl.html",
       controller: "splashScreen"
     })
@@ -31,6 +31,12 @@ angular.module('gamingPrac', ['ui.router'])
       url: '/nameEntry',
       templateUrl: "template/nameEntryTmpl.html",
       controller: 'nameEntryCtrl'
+    })
+
+    .state('scoreScreen', {
+      url: '/scoreScreen',
+      templateUrl: "template/scoreScreenTmpl.html",
+      // controller: 'scoreCtrl'
     })
 
   })
