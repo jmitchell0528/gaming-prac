@@ -68,6 +68,17 @@ main {
 }
 
 .splash {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_splashscreen.png');
+  height: 100%;
+}
+
+.credits {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
+  height: 100%;
+}
+
+.ctrl-settings {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
   height: 100%;
 }
 
@@ -91,7 +102,7 @@ main {
   height: 10%
 }
 
-.aqua {
+.atm {
   display: flex;
   align-content: center;
   justify-content: center;
@@ -100,7 +111,7 @@ main {
   opacity: 0;
 }
 
-.kitty {
+.dash {
   display: flex;
   align-content: center;
   justify-content: center;
@@ -119,11 +130,8 @@ main {
   animation-name: appear;
 }
 
-.retro-fighter  {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  /*text-align: center;*/
+.choose-player  {
+  height: 100px;  
 }
 
 .char-select {
@@ -137,7 +145,7 @@ main {
 }
 .char-contain {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 }
 
@@ -167,31 +175,29 @@ main {
 .retro-fighter {
   height: 100px;
 }
-.retro {
-  display: inline-block;
-  /*position: relative;*/
-  /*text-align: right;*/
-  /*width: 48%;*/
-}
-.retro-image {
-  /*position: relative;*/
+
+.choose-player {
+  position: relative;
   width: 100%;
-  /*animation-duration: 1.75s;
-  animation-name: slidein-right;*/
+  justify-content: space-between;
+}
+.choose-image {
+  display: inline-block;
+  position: absolute;
+  animation: slidein-right;
+  animation-duration: 2s;
 }
 
-.fighter {
+.player {
   display: inline-block;
-  /*position: relative;*/
+  position: absolute;
+  left: 50%;
+  animation: slidein-left;
+  animation-duration: 2s;
   /*text-align: left;*/
   /*width: 48%;*/
 }
-.fighter-image {
-  /*position: relative;*/
-  width: 100%;
-  /*animation-duration: 1.75s;
-  animation-name: slidein-left;*/
-}
+
 
 .game_body {
   height: 100%;
@@ -201,6 +207,11 @@ main {
   justify-content: center;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+footer .footer{
+  display: flex;
+  justify-content: space-between;
 }
 
 /*#game_body_wrapper {
@@ -273,7 +284,7 @@ main {
 
 @keyframes slidein-right {
   0% {
-    left: -100%;
+    left: -50%;
   }
 
   100% {
@@ -283,10 +294,10 @@ main {
 
   @keyframes slidein-left {
     0% {
-      right: -100%;
+      left: 100%;
     }
 
     100% {
-      right: 0%;
+      left: 50%;
     }
   }

@@ -2,7 +2,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
     var self = this
     // var returning = false;
     function reset() {
-      self.character = 'blaze'
+      self.character = 'Kat Alley'
       self.paused = false
       self.level = 1
       self.score = 0
