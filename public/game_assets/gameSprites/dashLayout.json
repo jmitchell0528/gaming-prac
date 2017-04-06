@@ -1,0 +1,66 @@
+{"frames": {
+
+"alley.png":
+{
+	"frame": {"x":0,"y":0,"w":82,"h":82},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":82},
+	"sourceSize": {"w":82,"h":82},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"atm.png":
+{
+	"frame": {"x":82,"y":0,"w":45,"h":76},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":76},
+	"sourceSize": {"w":45,"h":76},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"bag.png":
+{
+	"frame": {"x":127,"y":0,"w":18,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":18,"h":20},
+	"sourceSize": {"w":18,"h":20},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"card.png":
+{
+	"frame": {"x":145,"y":0,"w":20,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":12},
+	"sourceSize": {"w":20,"h":12},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"cash.png":
+{
+	"frame": {"x":165,"y":0,"w":20,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":12},
+	"sourceSize": {"w":20,"h":12},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"dashStageStreet.png":
+{
+	"frame": {"x":185,"y":0,"w":1278,"h":228},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1278,"h":228},
+	"sourceSize": {"w":1278,"h":228},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "dashLayout.png",
+	"format": "RGBA8888",
+	"size": {"w":1463,"h":228},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:228d63da4b3ba44455abaf0bcdb3e55a:8a31ca12bf6e3f25e8d65673f1be7a7b:ed8f74dba4b6b1b61242964762f7262d$"
+}
+}
