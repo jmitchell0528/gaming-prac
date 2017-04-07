@@ -83,6 +83,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
         ////// SETUP START //////
 
         function setup() {
+
             gameScene = new Container();
             stage.addChild(gameScene);
 
@@ -254,26 +255,6 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             // message.anchor.set(0.5, 0.5);
             introScreen.addChild(message);
 
-            // var stackOfCash = 4
-            //   spacing = 48,
-            //   xOffset = 100;
-            //
-            // stacks = [];
-            //
-            // for (var i = 0; i < stackOfCash; i++) {
-            //   var stackOfCash = new Sprite(id["cash.png"]);
-            //
-            //   var x = spacing * i + xOffset;
-            //   // var y = Math.random(0, stage.height - cash.height);
-            //   var y = Math.floor(Math.random() * 675) + 250
-            //   cash.x = x;
-            //   cash.y = y;
-            //
-            //   cash.push(stacks);
-            //
-            //   gameScene.addChild(cash);
-            // }
-
 
             // keyboard arrow set keys
 
@@ -302,8 +283,6 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                         idleCounter = 1
                     }
 
-                    // blaze.texture = new Sprite(id["blazeIdle${walkingDirection}${idleCounter}.png"]);
-                    // idleCounter++
 
                     blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyIdle${walkingDirection}${idleCounter}.png`)
                     idleCounter++
@@ -503,8 +482,11 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             crouch.release = function() {
                 isCrouching = false;
             }
-
         };
+
+
+
+
         ////// SETUP END //////
 
 

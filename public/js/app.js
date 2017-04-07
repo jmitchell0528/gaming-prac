@@ -12,7 +12,7 @@ angular.module('gamingPrac', ['ui.router'])
     .state('home', {
       url: '/home',
       templateUrl: "template/splashScreenTmpl.html",
-      controller: "splashScreen"
+      controller: "splashScreenCtrl"
     })
 
     .state('credits', {

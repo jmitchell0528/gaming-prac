@@ -31,10 +31,10 @@ main {
   width: 100%;
   height: 100vh;
   animation: flash;
-  animation-delay: 2.5s;
+  animation-delay: 2s;
   animation-duration: 6s;
   animation-timing-function: ease-in-out;
-  z-index: -1;
+  z-index: -3;
 }
 
 .game-over  {
@@ -43,6 +43,16 @@ main {
 }
 
 .enter-user-text  {
+  /*background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');*/
+  /*display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;*/
+}
+
+.name-entry-contain  {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,8 +68,9 @@ main {
   width: auto;
 }
 
-.score-contain  {
+  .score-contain  {
   background-image: url('game_assets/backgrounds/atm_backgrounds_newrecord.png');
+
 }
 
 .game-over-contain {
@@ -121,18 +132,42 @@ main {
 
 
 
-/*@keyframes flash {
+@keyframes flash {
   0% {
     background-color: white;
     opacity: 1;
   }
+  1%  {
+    z-index: 3
+  }
   90% {
     background-color: inherit;
   }
+
   99%  {
-    z-index: -20;
+    z-index: -3;
   }
   100% {
     opacity: 0;
   }
-}*/
+}
+
+/*@keyframes new-record-right {
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 0%;
+  }
+}
+
+  @keyframes new-record-left {
+    0% {
+      left: 100%;
+    }
+
+    100% {
+      left: 50%;
+    }
+  }*/

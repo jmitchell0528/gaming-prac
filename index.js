@@ -31,12 +31,15 @@ app.use(session(  {secret: 'keyboard kat'}  ));
 app.get('/api/gamelogs', function(req, res) {
   db.read_gamelogs_on_high_scores(function(err, gamelogs) {
     if (err) return res.status(500).json(err)
-    console.log(gamelogs);
     return res.status(200).json(gamelogs)
   })
 })
 
 app.post('/api/gamelogs', function(req, res) {
+  if (!req.body.username || !req.body.character || !req.body.level || !req.body.time || !req.body.points) {
+    return res.status(422).json("Error: Missing Property")
+  }
+
  var user, newHighScore;
  var  bool = true
   db.create_gamelog([req.body.username, req.body.character, req.body.level, req.body.time, req.body.points], function(err, createGamelog) {

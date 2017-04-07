@@ -1,6 +1,7 @@
-angular.module('gamingPrac').controller('splashScreenCtrl', function($scope, $state) {
+angular.module('gamingPrac').controller('splashScreenCtrl', function($scope, $state, $timeout) {
 
-  setTimeout(function() {
-    $state.go('scoreScreen')},
-    10000)
-  })
+  // $timeout(function() {
+  //
+  //   $state.go('scoreScreen')},
+  //   100000)
+})

@@ -44,6 +44,28 @@ module.exports = {
       assert.ok(response.body.length === 10)
       done()
     })
-  }
-  
+  },
+  gamelogs_should_accept_data(done){
+    supertest(app)
+    .post("/api/gamelogs")
+    .send({ username: 'DaBest', character:'Kat Alley' , level: 1, time: 36, points: 205})
+    .end(function(err, response){
+      assert.ifError(err)
+      assert.ok(!err)
+      assert.ok(response.status !== 404)
+      done()
+    })
+  },
+  gamelogs_should_reject_empty_data(done){
+    supertest(app)
+    .post("/api/gamelogs")
+    .send({ username: null, character: null, level: null, time: null, points: null})
+    .expect(422)
+    .end(function(err, response){
+      assert.ifError(err)
+      assert.ok(!err)
+      done()
+    })
+  },
+
 }
