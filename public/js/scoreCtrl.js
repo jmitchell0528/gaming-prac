@@ -5,6 +5,6 @@ angular.module('gamingPrac').controller('scoreCtrl', function($scope, $state, sc
 
     setTimeout(function() {
       $state.go('home')
-    }, 5000)
+    }, 10000)
   })
 });

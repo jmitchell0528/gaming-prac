@@ -82,6 +82,10 @@ main {
   height: 100%;
 }
 
+.score-contain  {
+  background-image: url('game_assets/backgrounds/atm_backgrounds_newrecord.png');
+}
+
 .splash header {
   height: 10%;
 }
@@ -131,7 +135,7 @@ main {
 }
 
 .choose-player  {
-  height: 100px;  
+  height: 100px;
 }
 
 .char-select {
@@ -185,7 +189,7 @@ main {
   display: inline-block;
   position: absolute;
   animation: slidein-right;
-  animation-duration: 2s;
+  animation-duration: 0.5s;
 }
 
 .player {
@@ -193,7 +197,7 @@ main {
   position: absolute;
   left: 50%;
   animation: slidein-left;
-  animation-duration: 2s;
+  animation-duration: 0.5s;
   /*text-align: left;*/
   /*width: 48%;*/
 }

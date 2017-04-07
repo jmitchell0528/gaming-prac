@@ -1,23 +1,25 @@
-<div class="score-table" ng-app="gamingPrac">
-    <table ng-controller="scoreCtrl">
-        <thead>
-            <tr>
-                <th>NAME</th>
-                <th>CHARACTER</th>
-                <th>LEVEL</th>
-                <th>TIME</th>
-                <th>SCORE</th>
-            </tr>
-        </thead>
+<div class="score-contain">
+  <div class="score-table white-text" ng-app="gamingPrac">
+      <table ng-controller="scoreCtrl">
+          <thead>
+              <tr>
+                  <th>NAME</th>
+                  <th>CHARACTER</th>
+                  <th>LEVEL</th>
+                  <th>TIME</th>
+                  <th>SCORE</th>
+              </tr>
+          </thead>
 
-        <tbody>
-            <tr ng-repeat="score in highScores">
-                <td> {{ score.username }} </td>
-                <td>{{ score.character }} </td>
-                <td>{{ score.level }} </td>
-                <td>{{ score.time }} </td>
-                <td>{{ score.points }} </td>
-            </tr>
-        </tbody>
-    </table>
+          <tbody>
+              <tr ng-repeat="score in highScores">
+                  <td> {{ score.username }} </td>
+                  <td>{{ score.character }} </td>
+                  <td>{{ score.level }} </td>
+                  <td>{{ score.time }} </td>
+                  <td>{{ score.score }} </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
 </div>

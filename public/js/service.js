@@ -19,9 +19,6 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
           time: self.timer,
           level: self.level
         }
-
-        console.log(data)
-
         return $http.post("/api/gamelogs", data)
     }
 
@@ -73,14 +70,14 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
         // if (!returning){
 
           loader
-              .add("imageset/rageLayout.json")
+              .add("game_assets/gameSprites/dashLayout.json")
               .load(setup);
               // returning = true;
 
 
 
 
-        var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, message, scoreObj, gameWinScene, blazeAnimation, introScreen, timerObj, stageLevel;
+        var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, message, scoreObj, gameWinScene, blazeAnimation, introScreen, timerObj, stageLevel, bag, atm;
 
 
         ////// SETUP START //////
@@ -90,10 +87,10 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             stage.addChild(gameScene);
 
 
-            id = resources["imageset/rageLayout.json"].textures;
+            id = resources["game_assets/gameSprites/dashLayout.json"].textures;
 
             // stage
-            stageStreet = new Sprite(id["stageStreet.png"]);
+            stageStreet = new Sprite(id["dashStageStreet.png"]);
             stageStreet.scale.x = 3;
             stageStreet.scale.y = 3;
             // stageStreet.x = (stage.width - stageStreet.width) / 2;
@@ -102,7 +99,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             gameScene.addChild(stageStreet);
 
             // blaze
-            blaze = new Sprite(id["blaze.png"]);
+            blaze = new Sprite(id["alley.png"]);
             // blaze.position.set(280, 116);
             blaze.scale.set(3, 3);
             // blaze.anchor.set(0.5, 0.5);
@@ -114,21 +111,21 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             gameScene.addChild(blaze);
 
             // bank
-            bank = new Sprite(id["bank.png"])
+            bank = new Sprite(id["atm.png"])
             bank.position.set(950, 300);
             bank.scale.set(3, 3);
             // bank.anchor.set(0.5, 0.5);
             gameScene.addChild(bank);
 
             // cash
-            cash = new Sprite(id["cash.png"])
+            cash = new Sprite(id["bag.png"])
             cash.position.set(350, 500);
             cash.scale.set(3, 3);
             // cash.anchor.set(0.5, 0.5);
             gameScene.addChild(cash);
 
             // gold
-            gold = new Sprite(id["gold.png"])
+            gold = new Sprite(id["cash.png"])
             gold.position.set(200, 450);
             gold.scale.set(3, 3);
             // cash.anchor.set(0.5, 0.5);
@@ -270,21 +267,21 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                     // blaze.texture = new Sprite(id["blazeIdle${walkingDirection}${idleCounter}.png"]);
                     // idleCounter++
 
-                    blaze.texture = PIXI.Texture.fromImage(`imageset/blazeIdle${walkingDirection}${idleCounter}.png`)
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyIdle${walkingDirection}${idleCounter}.png`)
                     idleCounter++
                 }
                 if (isWalking) {
                     if (walkingCounter > 6) {
                         walkingCounter = 1
                     }
-                    blaze.texture = PIXI.Texture.fromImage(`imageset/blazeWalk${walkingDirection}${walkingCounter}.png`)
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyWalk${walkingDirection}${walkingCounter}.png`)
                     walkingCounter++
                 }
                 if (isAttacking) {
-                    if (attackCounter > 4) {
+                    if (attackCounter > 3) {
                         attackCounter = 1
                     }
-                    blaze.texture = PIXI.Texture.fromImage(`imageset/blazeAttack${walkingDirection}${attackCounter}.png`)
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyPunch${walkingDirection}${attackCounter}.png`)
                     attackCounter++
                 }
             }, 125)
