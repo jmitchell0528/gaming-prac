@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -u exports test/**/*"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,8 @@
     "cors": "^2.8.3",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
-    "massive": "^2.6.0"
+    "massive": "^2.6.0",
+    "mocha": "^3.2.0",
+    "supertest": "^3.0.0"
   }
 }

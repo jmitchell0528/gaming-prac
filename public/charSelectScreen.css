@@ -1,0 +1,83 @@
+.choose-player  {
+  height: 100px;
+}
+.char-select {
+  height: 100vh;
+  width: auto;
+}
+
+.char-container {
+  display: flex;
+  height: 70vh;
+  align-items: center;
+}
+
+.char-contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choose-player {
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+}
+.choose-image {
+  display: inline-block;
+  position: absolute;
+  animation: slidein-right;
+  animation-duration: 0.5s;
+}
+
+.player {
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  animation: slidein-left;
+  animation-duration: 0.5s;
+}
+
+.char-one  {
+  transform: 0.5s ease;
+}
+
+.char-one:hover  {
+  transform: scale(1.2);
+}
+
+.char-two  {
+  transform: 0.5s ease;
+}
+
+.char-two:hover  {
+  transform: scale(1.2);
+}
+
+.char-three  {
+  transform: 0.5s ease;
+}
+
+.char-three:hover  {
+  transform: scale(1.2);
+}
+
+@keyframes slidein-right {
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 0%;
+  }
+}
+
+  @keyframes slidein-left {
+    0% {
+      left: 100%;
+    }
+
+    100% {
+      left: 50%;
+    }
+  }

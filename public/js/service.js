@@ -2,7 +2,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
     var self = this
     // var returning = false;
     function reset() {
-      self.character = 'blaze'
+      self.character = 'Kat Alley'
       self.paused = false
       self.level = 1
       self.score = 0
@@ -19,9 +19,6 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
           time: self.timer,
           level: self.level
         }
-
-        console.log(data)
-
         return $http.post("/api/gamelogs", data)
     }
 
@@ -45,7 +42,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
 
 
         // Code for resizing
-        var size = [1650, 690];
+        var size = [1250, 800];
         var ratio = size[0] / size[1];
         var stage = new PIXI.Stage(0x333333, true);
         var renderer = autoDetectRenderer(size[0], size[1] /*, {transparent: true}*/ );
@@ -73,27 +70,28 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
         // if (!returning){
 
           loader
-              .add("imageset/rageLayout.json")
+              .add("game_assets/gameSprites/dashLayout.json")
               .load(setup);
               // returning = true;
 
 
 
 
-        var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, message, scoreObj, gameWinScene, blazeAnimation, introScreen, timerObj, stageLevel;
+        var state, blaze, cash, gold, stageStreet, gameScene, bank, id, healthBar, message, scoreObj, gameWinScene, blazeAnimation, introScreen, timerObj, stageLevel, bag, atm, card;
 
 
         ////// SETUP START //////
 
         function setup() {
+
             gameScene = new Container();
             stage.addChild(gameScene);
 
 
-            id = resources["imageset/rageLayout.json"].textures;
+            id = resources["game_assets/gameSprites/dashLayout.json"].textures;
 
             // stage
-            stageStreet = new Sprite(id["stageStreet.png"]);
+            stageStreet = new Sprite(id["dashStageStreet.png"]);
             stageStreet.scale.x = 3;
             stageStreet.scale.y = 3;
             // stageStreet.x = (stage.width - stageStreet.width) / 2;
@@ -101,38 +99,47 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             // stageStreet.height / 256;
             gameScene.addChild(stageStreet);
 
-            // blaze
-            blaze = new Sprite(id["blaze.png"]);
-            // blaze.position.set(280, 116);
-            blaze.scale.set(3, 3);
-            // blaze.anchor.set(0.5, 0.5);
-            // Blaze's movement
-            blaze.vx = 0;
-            blaze.vy = 0;
-            blaze.x = 256;
-            blaze.y = gameScene.height / 256 - blaze.height / 256;
-            gameScene.addChild(blaze);
-
             // bank
-            bank = new Sprite(id["bank.png"])
-            bank.position.set(950, 300);
-            bank.scale.set(3, 3);
+            bank = new Sprite(id["atm.png"])
+            bank.position.set(225, 250);
+            bank.scale.set(2.5, 2.5);
             // bank.anchor.set(0.5, 0.5);
             gameScene.addChild(bank);
 
             // cash
-            cash = new Sprite(id["cash.png"])
+            cash = new Sprite(id["bag.png"])
             cash.position.set(350, 500);
-            cash.scale.set(3, 3);
+            cash.scale.set(2.5, 2.5);
             // cash.anchor.set(0.5, 0.5);
             gameScene.addChild(cash);
 
             // gold
-            gold = new Sprite(id["gold.png"])
-            gold.position.set(200, 450);
-            gold.scale.set(3, 3);
+            gold = new Sprite(id["cash.png"])
+            gold.position.set(600, 450);
+            gold.scale.set(2.5, 2.5);
             // cash.anchor.set(0.5, 0.5);
             gameScene.addChild(gold);
+
+            //credit card
+            card = new Sprite(id["card.png"])
+            card.position.set(1000, 550);
+            card.scale.set(1.25, 1.25);
+            // cash.anchor.set(0.5, 0.5);
+            gameScene.addChild(card);
+
+            // blaze
+            blaze = new Sprite(id["alley.png"]);
+            // blaze.position.set(280, 116);
+            blaze.scale.set(2.5, 2.5);
+            // blaze.anchor.set(0.5, 0.5);
+            // Blaze's movement
+            blaze.vx = 0;
+            blaze.vy = 0;
+            blaze.x = 600;
+            blaze.y = 400;
+            blaze.z = 10
+            // blaze.y = gameScene.height / 300 - blaze.height / 300;
+            gameScene.addChild(blaze);
 
             // Score counter
             var counter = 0;
@@ -155,7 +162,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                 fill: "White"
             });
 
-            timerObj.position.set(700, 10);
+            timerObj.position.set(600, 10);
             timerObj.scale.set(1, 1);
             gameScene.addChild(timerObj);
 
@@ -168,9 +175,16 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                 timerObj.text = 'TIME: ' + Math.floor(timeCounter);
 
                 animator(animate);
+
+                if (timeCounter > 30) {
+                  reset()
+                  pause.press()
+                  $state.go('gameOver')
+
+                }
             }
 
-            // level number
+            //level number
             stageLevel = new Text(
                 "Level: 1", // + counter,
                 {
@@ -178,13 +192,13 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                     fill: "White"
                 }
             );
-            stageLevel.position.set(710, 600);
+            stageLevel.position.set(600, 600);
             stageLevel.scale.set(1, 1);
             gameScene.addChild(stageLevel);
 
             // Create the healthbar
             healthBar = new Container();
-            healthBar.position.set(1225, 15);
+            healthBar.position.set(850, 15);
             healthBar.scale.set(3, 3);
             gameScene.addChild(healthBar);
 
@@ -242,7 +256,6 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
             introScreen.addChild(message);
 
 
-
             // keyboard arrow set keys
 
             var left = keyboard(37),
@@ -250,43 +263,52 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                 right = keyboard(39),
                 down = keyboard(40),
                 pause = keyboard(80), // P
-                attack = keyboard(32); // Spacebar
+                attack = keyboard(32), // Spacebar
+                crouch = keyboard(67); // C
 
 
             // Walking animation
 
             var isWalking = false
             var isAttacking = false
+            var isCrouching = false
             var walkingDirection = "Left";
             var walkingCounter = 1;
             var idleCounter = 1;
             var attackCounter = 1;
+            var crouchCounter = 1;
             setInterval(function() {
                 if (!isWalking) {
                     if (idleCounter > 3) {
                         idleCounter = 1
                     }
 
-                    // blaze.texture = new Sprite(id["blazeIdle${walkingDirection}${idleCounter}.png"]);
-                    // idleCounter++
 
-                    blaze.texture = PIXI.Texture.fromImage(`imageset/blazeIdle${walkingDirection}${idleCounter}.png`)
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyIdle${walkingDirection}${idleCounter}.png`)
                     idleCounter++
                 }
                 if (isWalking) {
                     if (walkingCounter > 6) {
                         walkingCounter = 1
                     }
-                    blaze.texture = PIXI.Texture.fromImage(`imageset/blazeWalk${walkingDirection}${walkingCounter}.png`)
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyWalk${walkingDirection}${walkingCounter}.png`)
                     walkingCounter++
                 }
                 if (isAttacking) {
-                    if (attackCounter > 4) {
+                    if (attackCounter > 3) {
                         attackCounter = 1
                     }
-                    blaze.texture = PIXI.Texture.fromImage(`imageset/blazeAttack${walkingDirection}${attackCounter}.png`)
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyPunch${walkingDirection}${attackCounter}.png`)
                     attackCounter++
-                }
+                  }
+
+                if (isCrouching) {
+                    if (crouchCounter > 1) {
+                        crouchCounter = 1
+                    }
+                    blaze.texture = PIXI.Texture.fromImage(`game_assets/gameSprites/alleyCrouch${walkingDirection}${crouchCounter}.png`)
+                    crouchCounter++
+                    }
             }, 125)
 
             // Pressing the left arrow key
@@ -345,6 +367,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                 }
             };
 
+            // pause.press()
             pause.press = function() {
                 if (self.paused) {
                     requestAnimationFrame(gameLoop)
@@ -352,11 +375,46 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                 }
                 self.paused = !self.paused
             }
-            // pause.press()
+
 
             // Pressing the spacebar to attack
             attack.press = function() {
                 isAttacking = true
+                var blazeHit = false;
+
+                // Check for a collision between Blaze and the bank
+                    if (hitTestRectangle(blaze, bank)) {
+                    blazeHit = true;
+                    console.log("You hit the ATM!")
+                    bank.alpha = 0.5;
+                    //Reduce the width of the health bar's inner rect by 10px
+                    healthBar.outer.width -= 10;
+                    counter += 5;
+                    scoreObj.text = "SCORE: " + counter
+                    //Does the bank have enough health? If the width of the `innerBar` is less than zero, end the game with "You Win!"
+                    if (healthBar.outer.width < 0) {
+                      // state = nameEntry;
+                      self.timer = numberParser(timerObj.text)
+                      self.level = numberParser(stageLevel.text)
+                      self.score = numberParser(scoreObj.text)
+
+                      pause.press()
+                      $state.go('nameEntry')
+                    }
+                }
+                    else {
+                    //Make the gold fully opaque (non-transparent) if it hasn't been hit
+                    bank.alpha = 1;
+                }
+            };
+            // Releasing the spacebar
+            attack.release = function() {
+                isAttacking = false;
+            }
+
+            // Pressing C to crouch
+            crouch.press = function() {
+                isCrouching = true
                 var blazeHit = false;
 
                 // Check for a collision between Blaze and the cash
@@ -370,37 +428,6 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
 
                     pause.press()
                     $state.go('nameEntry')
-                    // location.href = "http://localhost:3000/#!/nameEntry"
-                    // location.reload(true)
-
-                }
-
-                // Check for a collision between Blaze and the bank
-                else if (hitTestRectangle(blaze, bank)) {
-                    blazeHit = true;
-                    console.log("You hit the ATM!")
-                    //Reduce the width of the health bar's inner rect by 10px
-                    healthBar.outer.width -= 10;
-                    //Does the bank have enough health? If the width of the `innerBar` is less than zero, end the game with "You Win!"
-                    if (healthBar.outer.width < 0) {
-                        state = end;
-
-                        // self.postGamelog = function(inputsFromCtrl) {
-                            self.timer = numberParser(timerObj.text)
-                            self.level = numberParser(stageLevel.text)
-                            self.score = numberParser(scoreObj.text)
-                            console.log(scoreObj.text, timerObj.text, stageLevel.text);
-
-                            // $http.post("/api/gamelogs", {
-                            //     points: newScore,
-                            //     time: newTimer,
-                            //     level: newStageLevel
-                            // }).then(function(res){
-                            //   self.playerID = res.data[0].id
-                            //   console.log(self.playerID)
-                            // })
-                        // }
-                    }
                 }
 
                 // Check for a collision between Blaze and the gold
@@ -414,32 +441,55 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                     counter += 10;
                     scoreObj.text = "SCORE: " + counter
                     // If counter goes over 100, the player wins
-                    if (counter > 100) {
+                    if (counter > 500) {
                         // state = end;
+                        self.timer = numberParser(timerObj.text)
+                        self.level = numberParser(stageLevel.text)
+                        self.score = numberParser(scoreObj.text)
 
                         pause.press()
-                        $state.go('home')
-                        // self.postGamelog();
-
-                        // var newTimer = numberParser(timer.text)
-                        // var newStageLevel = numberParser(stageLevel.text)
-                        // var newScore = numberParser(score.text)
-                        // console.log(score.text, timer.text, stageLevel.text);
-                        // console.log(newTimer, newStageLevel, newScore);
-                        // // $http.post("/api/gamelogs", {points: score.text, time: timer.text, level: stageLevel.text})
+                        $state.go('nameEntry')
                     }
+                }
 
-                } else {
+                else if (hitTestRectangle(blaze, card)) {
+                    // if blazeHit is true when she is touching the gold...
+                    blazeHit = true;
+                    console.log("You got the card!")
+                    //Make the gold semi-transparent
+                    card.alpha = 0.5;
+                    //add 10 to your score
+                    counter += 20;
+                    scoreObj.text = "SCORE: " + counter
+                    // If counter goes over 100, the player wins
+                    if (counter > 500) {
+                        // state = end;
+                        self.timer = numberParser(timerObj.text)
+                        self.level = numberParser(stageLevel.text)
+                        self.score = numberParser(scoreObj.text)
+
+                        pause.press()
+                        $state.go('nameEntry')
+                    }
+                }
+                  else {
                     //Make the gold fully opaque (non-transparent) if it hasn't been hit
                     gold.alpha = 1;
+                    card.alpha = 1;
                 }
             };
             // Releasing the spacebar
-            attack.release = function() {
-                isAttacking = false;
+            crouch.release = function() {
+                isCrouching = false;
             }
         };
+
+
+
+
         ////// SETUP END //////
+
+
 
         // Ends the game once you get the cash
         function end() {
@@ -481,9 +531,9 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                 // Contain Blaze inside the stage
                 contain(blaze, {
                   x: 1,
-                  y: 200,
-                  width: 1675,
-                  height: 685
+                  y: 250,
+                  width: 1300,
+                  height: 675
                 });
             }
         }

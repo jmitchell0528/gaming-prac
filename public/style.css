@@ -16,6 +16,16 @@ main {
   width: auto;
 }
 
+.game_body {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .flash {
   position: absolute;
   width: 100%;
@@ -24,34 +34,25 @@ main {
   animation-delay: 2s;
   animation-duration: 6s;
   animation-timing-function: ease-in-out;
-  z-index: -1;
-}
-
-.credits  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: auto;
-}
-
-.ctrl-settings  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: auto;
+  z-index: -3;
 }
 
 .game-over  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   width: auto;
 }
 
 .enter-user-text  {
+  /*background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');*/
+  /*display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;*/
+}
+
+.name-entry-contain  {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,213 +68,49 @@ main {
   width: auto;
 }
 
-.splash {
-  height: 100%;
+  .score-contain  {
+  background-image: url('game_assets/backgrounds/atm_backgrounds_newrecord.png');
+
 }
 
-.splash header {
-  height: 10%;
-}
-
-.splash section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-}
-
-.splash .logo-container {
-  width: 100%;
+.game-over-contain {
+  height: 100px;
   position: relative;
-}
-
-.splash footer {
-  height: 10%
-}
-
-.aqua {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  animation-duration: 1.75s;
-  animation-name: slide-right;
-  opacity: 0;
-}
-
-.kitty {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  animation-duration: 1.75s;
-  animation-name: slide-left;
-  opacity: 0;
-}
-
-.final-logo {
-  position: absolute;
-  top: 0;
   width: 100%;
-  text-align: center;
-  opacity: 1;
-  animation-duration: 4s;
-  animation-name: appear;
+  justify-content: space-between;
 }
 
-.retro-fighter  {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  /*text-align: center;*/
-}
-
-.char-select {
-  height: 100vh;
-  width: auto;
-}
-.char-container {
+.mugshot-container  {
   display: flex;
   height: 70vh;
   align-items: center;
 }
-.char-contain {
+
+.mugshot-profile  {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
 }
 
-.char-one  {
-  transform: 0.5s ease;
-}
-
-.char-one:hover  {
-  transform: scale(1.2);
-}
-
-.char-two  {
-  transform: 0.5s ease;
-}
-
-.char-two:hover  {
-  transform: scale(1.2);
-}
-
-.char-three  {
-  transform: 0.5s ease;
-}
-
-.char-three:hover  {
-  transform: scale(1.2);
-}
-.retro-fighter {
-  height: 100px;
-}
-.retro {
+.game-image {
   display: inline-block;
-  /*position: relative;*/
-  /*text-align: right;*/
-  /*width: 48%;*/
-}
-.retro-image {
-  /*position: relative;*/
-  width: 100%;
-  /*animation-duration: 1.75s;
-  animation-name: slidein-right;*/
+  position: absolute;
+  animation: slip-right;
+  animation-duration: 0.5s;
 }
 
-.fighter {
+.over {
   display: inline-block;
-  /*position: relative;*/
-  /*text-align: left;*/
-  /*width: 48%;*/
-}
-.fighter-image {
-  /*position: relative;*/
-  width: 100%;
-  /*animation-duration: 1.75s;
-  animation-name: slidein-left;*/
+  position: absolute;
+  left: 50%;
+  animation: slip-left;
+  animation-duration: 0.5s;
 }
 
-.game_body {
-  height: 100%;
-  width: auto;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
 
-/*#game_body_wrapper {
-  height: auto;
-  width: auto;
-  display: inline-block;
-  text-align: center;
-  align-content: center;
-  justify-content: center;
-}*/
-
-@keyframes slide-right {
+@keyframes slip-right {
   0% {
-    margin-left: -100%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  90% {
-    margin-left: 0%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes slide-left {
-  0% {
-    margin-left: 100%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  90% {
-    margin-left: 0%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes appear {
-  0% {
-    opacity: 0
-  }
-  50% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1
-  }
-}
-@keyframes flash {
-  0% {
-    background-color: white;
-    opacity: 1;
-  }
-  90% {
-    background-color: inherit;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes slidein-right {
-  0% {
-    left: -100%;
+    left: -50%;
   }
 
   100% {
@@ -281,12 +118,56 @@ main {
   }
 }
 
-  @keyframes slidein-left {
+  @keyframes slip-left {
     0% {
-      right: -100%;
+      left: 100%;
     }
 
     100% {
-      right: 0%;
+      left: 50%;
     }
   }
+
+
+
+
+
+@keyframes flash {
+  0% {
+    background-color: white;
+    opacity: 1;
+  }
+  1%  {
+    z-index: 3
+  }
+  90% {
+    background-color: inherit;
+  }
+
+  99%  {
+    z-index: -3;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*@keyframes new-record-right {
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 0%;
+  }
+}
+
+  @keyframes new-record-left {
+    0% {
+      left: 100%;
+    }
+
+    100% {
+      left: 50%;
+    }
+  }*/

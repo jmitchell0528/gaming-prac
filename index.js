@@ -21,26 +21,52 @@ app.use(json());
 app.use(cors());
 app.use(session(  {secret: 'keyboard kat'}  ));
 
-app.get('/api/gamelogs/:id', function(req, res) {
-  db.read_gamelog(req.params.id, function(err, gamelog) {
-    if (err) return res.status(500).json(err)
-    return res.status(200).json(gamelog)
-  })
-})
+// app.get('/api/gamelogs/:id', function(req, res) {
+//   db.read_gamelog(req.params.id, function(err, gamelog) {
+//     if (err) return res.status(500).json(err)
+//     return res.status(200).json(gamelog)
+//   })
+// })
 
 app.get('/api/gamelogs', function(req, res) {
-  db.read_gamelogs(function(err, gamelogs) {
+  db.read_gamelogs_on_high_scores(function(err, gamelogs) {
     if (err) return res.status(500).json(err)
     return res.status(200).json(gamelogs)
   })
 })
 
 app.post('/api/gamelogs', function(req, res) {
+  if (!req.body.username || !req.body.character || !req.body.level || !req.body.time || !req.body.points) {
+    return res.status(422).json("Error: Missing Property")
+  }
 
+ var user, newHighScore;
+ var  bool = true
   db.create_gamelog([req.body.username, req.body.character, req.body.level, req.body.time, req.body.points], function(err, createGamelog) {
-    console.log(createGamelog);
     if (err) {return res.status(500).json(err)}
-    return res.status(200).json(createGamelog)
+    user = createGamelog[0];
+    db.read_high_scores( function(err, result) {
+      var i = 0
+      while (bool) {
+        if (user.points > result[i].score)  {
+          bool = false
+          newHighScore = true
+          db.update_high_scores( [user.id, user.points], function(err, high_scores)  {
+            db.delete_high_scores(function(err, editedHighScores) {
+              // return res.status(200).json(high_scores)
+            })
+            return;
+          })
+        }
+        if (bool){
+          i = i + 1;
+          bool = (i < result.length)
+        }
+      }
+    })
+    if (!newHighScore) {
+      return res.status(200).json(createGamelog)
+    }
   })
 })
 
@@ -61,3 +87,5 @@ app.delete('/api/gamelogs/:id', function(req, res) {
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
 })
+
+module.exports = app;
