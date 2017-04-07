@@ -16,37 +16,28 @@ main {
   width: auto;
 }
 
+.game_body {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .flash {
   position: absolute;
   width: 100%;
   height: 100vh;
   animation: flash;
-  animation-delay: 2s;
+  animation-delay: 2.5s;
   animation-duration: 6s;
   animation-timing-function: ease-in-out;
   z-index: -1;
 }
 
-.credits  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: auto;
-}
-
-.ctrl-settings  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: auto;
-}
-
 .game-over  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   width: auto;
 }
@@ -67,226 +58,46 @@ main {
   width: auto;
 }
 
-.splash {
-  background-image: url('/game_assets/backgrounds/atm_backgrounds_splashscreen.png');
-  height: 100%;
-}
-
-.credits {
-  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
-  height: 100%;
-}
-
-.ctrl-settings {
-  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
-  height: 100%;
-}
-
 .score-contain  {
   background-image: url('game_assets/backgrounds/atm_backgrounds_newrecord.png');
 }
 
-.splash header {
-  height: 10%;
-}
-
-.splash section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-}
-
-.splash .logo-container {
-  width: 100%;
-  position: relative;
-}
-
-.splash footer {
-  height: 10%
-}
-
-.atm {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  animation-duration: 1.75s;
-  animation-name: slide-right;
-  opacity: 0;
-}
-
-.dash {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  animation-duration: 1.75s;
-  animation-name: slide-left;
-  opacity: 0;
-}
-
-.final-logo {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  text-align: center;
-  opacity: 1;
-  animation-duration: 4s;
-  animation-name: appear;
-}
-
-.choose-player  {
+.game-over-contain {
   height: 100px;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.char-select {
-  height: 100vh;
-  width: auto;
-}
-.char-container {
+.mugshot-container  {
   display: flex;
   height: 70vh;
   align-items: center;
 }
-.char-contain {
+
+.mugshot-profile  {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.char-one  {
-  transform: 0.5s ease;
-}
-
-.char-one:hover  {
-  transform: scale(1.2);
-}
-
-.char-two  {
-  transform: 0.5s ease;
-}
-
-.char-two:hover  {
-  transform: scale(1.2);
-}
-
-.char-three  {
-  transform: 0.5s ease;
-}
-
-.char-three:hover  {
-  transform: scale(1.2);
-}
-.retro-fighter {
-  height: 100px;
-}
-
-.choose-player {
-  position: relative;
-  width: 100%;
-  justify-content: space-between;
-}
-.choose-image {
+.game-image {
   display: inline-block;
   position: absolute;
-  animation: slidein-right;
+  animation: slip-right;
   animation-duration: 0.5s;
 }
 
-.player {
+.over {
   display: inline-block;
   position: absolute;
   left: 50%;
-  animation: slidein-left;
+  animation: slip-left;
   animation-duration: 0.5s;
-  /*text-align: left;*/
-  /*width: 48%;*/
 }
 
 
-.game_body {
-  height: 100%;
-  width: auto;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-
-footer .footer{
-  display: flex;
-  justify-content: space-between;
-}
-
-/*#game_body_wrapper {
-  height: auto;
-  width: auto;
-  display: inline-block;
-  text-align: center;
-  align-content: center;
-  justify-content: center;
-}*/
-
-@keyframes slide-right {
-  0% {
-    margin-left: -100%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  90% {
-    margin-left: 0%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes slide-left {
-  0% {
-    margin-left: 100%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  90% {
-    margin-left: 0%;
-    width: 100%;
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes appear {
-  0% {
-    opacity: 0
-  }
-  50% {
-    opacity: 0
-  }
-  100% {
-    opacity: 1
-  }
-}
-@keyframes flash {
-  0% {
-    background-color: white;
-    opacity: 1;
-  }
-  90% {
-    background-color: inherit;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes slidein-right {
+@keyframes slip-right {
   0% {
     left: -50%;
   }
@@ -296,7 +107,7 @@ footer .footer{
   }
 }
 
-  @keyframes slidein-left {
+  @keyframes slip-left {
     0% {
       left: 100%;
     }
@@ -305,3 +116,23 @@ footer .footer{
       left: 50%;
     }
   }
+
+
+
+
+
+/*@keyframes flash {
+  0% {
+    background-color: white;
+    opacity: 1;
+  }
+  90% {
+    background-color: inherit;
+  }
+  99%  {
+    z-index: -20;
+  }
+  100% {
+    opacity: 0;
+  }
+}*/

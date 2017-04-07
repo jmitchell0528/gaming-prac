@@ -1,0 +1,129 @@
+.splash {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_splashscreen.png');
+  height: 100%;
+}
+.splash header {
+  height: 10%;
+}
+.splash section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.splash .logo-container {
+  width: 100%;
+  position: relative;
+}
+
+.splash footer {
+  height: 10%
+}
+
+.atm {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  animation-duration: 1.75s;
+  animation-name: slide-right;
+  opacity: 0;
+}
+
+.dash {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  animation-duration: 1.75s;
+  animation-name: slide-left;
+  opacity: 0;
+}
+
+.final-logo {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 1;
+  animation-duration: 4s;
+  animation-name: appear;
+}
+
+.credits  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
+.ctrl-settings  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: auto;
+}
+
+.credits {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
+  height: 100%;
+}
+
+.ctrl-settings {
+  background-image: url('/game_assets/backgrounds/atm_backgrounds_settings_controls.png');
+  height: 100%;
+}
+
+
+footer .footer{
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes slide-right {
+  0% {
+    margin-left: -100%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  90% {
+    margin-left: 0%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    margin-left: 100%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  90% {
+    margin-left: 0%;
+    width: 100%;
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0
+  }
+  50% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
