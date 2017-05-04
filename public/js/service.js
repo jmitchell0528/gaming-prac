@@ -12,6 +12,8 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
     reset()
 
     self.postGamelog = function(username) {
+        console.log("Score: ", self.score)
+        console.log(self.timer)
         var data = {
           character: self.character,
           username: username,
@@ -20,6 +22,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
           level: self.level
         }
         return $http.post("/api/gamelogs", data)
+        .then(reset)
     }
 
     this.load = function() {
@@ -176,9 +179,11 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
 
                 animator(animate);
 
-                if (timeCounter > 30) {
+                if (timeCounter >= 30) {
                   reset()
                   pause.press()
+                  // Check to see if high score is high score
+                  // if counter hits 30, check to see if there is a high score, if so, go to nameEntry screen, else go to gameover
                   $state.go('gameOver')
 
                 }
@@ -398,6 +403,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                       self.level = numberParser(stageLevel.text)
                       self.score = numberParser(scoreObj.text)
 
+
                       pause.press()
                       $state.go('nameEntry')
                     }
@@ -425,8 +431,8 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
                     self.timer = numberParser(timerObj.text)
                     self.level = numberParser(stageLevel.text)
                     self.score = numberParser(scoreObj.text)
-
-                    pause.press()
+                    self.paused = true
+                    // pause.press()
                     $state.go('nameEntry')
                 }
 
@@ -661,6 +667,7 @@ angular.module('gamingPrac').service('levelOne', function($http, $stateParams, $
     }
 
     function animator(animate) {
+      console.log(self.paused)
         if (!self.paused) {
             requestAnimationFrame(animate)
         }
